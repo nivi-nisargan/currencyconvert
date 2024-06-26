@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            background-image: url('https://cdn.prod.website-files.com/5f3f901bf8e30216fb4103ad/639150ac59c47f14875a21fc_second-guessing.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .game-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            width: 400px;
+        }
+        h2 {
+            color: #ffffff;
+        }
+        p {
+            color: #fcfcfc;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            width: 80%;
+            max-width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #fffbfb;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h2>Number Guessing Game</h2>
+        <p>Guess a number between 1 and 100:</p>
+        <input type="number" id="guess" min="1" max="100" required>
+        <button onclick="checkGuess()">Check</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Generate a random target number between 1 and 100
+        let targetNumber = Math.floor(Math.random() * 100) + 1;
+        console.log("Target Number:", targetNumber);
+
+        function checkGuess() {
+            // Get user input
+            let guess = parseInt(document.getElementById('guess').value);
+            
+            // Validate input
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("Please enter a valid number between 1 and 100.");
+                return;
+            }
+            
+            // Compare user's guess with the target number
+            if (guess < targetNumber) {
+                setMessage("Too low! Try a higher number.");
+            } else if (guess > targetNumber) {
+                setMessage("Too high! Try a lower number.");
+            } else {
+                setMessage(`Congratulations! ${guess} is the correct number.`);
+                // Disable input and button after correct guess
+                document.getElementById('guess').disabled = true;
+                document.querySelector('button').disabled = true;
+            }
+        }
+
+        function setMessage(message) {
+            document.getElementById('message').textContent = message;
+        }
+    </script>
+</body>
+</html>
